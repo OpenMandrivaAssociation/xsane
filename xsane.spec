@@ -14,7 +14,7 @@ Source:		ftp://ftp.sane-project.org/pub/sane/xsane/%name-%version.tar.bz2
 Source1:	xsane16.png
 Source2:	xsane32.png
 Source3:	xsane48.png
-Patch:		xsane-0.99-browser.patch.bz2
+Patch:		xsane-0.99-browser.patch
 License:	GPL
 Requires:	libsane >= 1.0.4
 # Contains "www-browser" script
