@@ -1,6 +1,6 @@
 %define	name	xsane
-%define	version	0.991
-%define	release	%mkrel 2
+%define	version	0.994
+%define	release	%mkrel 1
 # Enable debug mode
 %define debug 0
 
@@ -88,17 +88,6 @@ install -m 0644 %SOURCE1 %{buildroot}/%{_miconsdir}/xsane.png
 install -m 0644 %SOURCE2 %{buildroot}/%{_iconsdir}/xsane.png
 install -m 0644 %SOURCE3 %{buildroot}/%{_liconsdir}/xsane.png
 
-cat > %buildroot/%{_menudir}/xsane << EOF
-?package(%{name}): \
-command="%{_bindir}/%{name}" \
-icon="xsane.png" \
-needs="X11" \
-section="Multimedia/Graphics" \
-title="XSane" \
-longtitle="Xsane is a frontend for the scanner program sane" \
-xdg="true"
-EOF
-
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
@@ -135,7 +124,6 @@ rm -fr %buildroot
 %dir %_datadir/sane
 %_datadir/sane/*
 %_mandir/man1/*
-%_menudir/*
 %{_datadir}/applications/mandriva-%{name}.desktop
 %_iconsdir/*
 
