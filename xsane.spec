@@ -1,6 +1,6 @@
 %define	name	xsane
 %define	version	0.994
-%define	release	%mkrel 1
+%define	release	%mkrel 2
 # Enable debug mode
 %define debug 0
 
@@ -97,7 +97,7 @@ Exec=%{_bindir}/xsane
 Icon=%{name}
 Terminal=false
 Type=Application
-Categories=X-MandrivaLinux-Multimedia-Graphics;Graphics;Photography;
+Categories=Graphics;Scanning;GTK;
 EOF
 
 # dynamic desktop support
