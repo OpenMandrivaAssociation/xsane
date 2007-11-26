@@ -1,6 +1,6 @@
 %define	name	xsane
-%define	version	0.994
-%define	release	%mkrel 2
+%define	version	0.995
+%define	release	%mkrel 1
 # Enable debug mode
 %define debug 0
 
@@ -10,12 +10,12 @@ Release:	%release
 Summary:	Xsane is a frontend for the SANE scanner interface
 Group:		Graphics
 URL:		http://www.xsane.org/
-Source:		ftp://ftp.sane-project.org/pub/sane/xsane/%name-%version.tar.bz2
+Source:		ftp://ftp.sane-project.org/pub/sane/xsane/%name-%version.tar.gz
 Source1:	xsane16.png
 Source2:	xsane32.png
 Source3:	xsane48.png
 Patch:		xsane-0.99-browser.patch
-License:	GPL
+License:	GPLv2+
 Requires:	libsane >= 1.0.4
 # Contains "www-browser" script
 Requires:	desktop-common-data
@@ -23,7 +23,7 @@ Requires:	desktop-common-data
 # but decide depending on the system environment which GUI actually to
 # install
 Provides:       scanner-gui
-BuildRequires:	sane-devel libgimp-devel >= 2.0 libjpeg-devel libpng-devel libsane-devel libusb-devel
+BuildRequires:	sane-devel gimp-devel >= 2.0 libjpeg-devel libpng-devel libusb-devel
 Buildroot:	%_tmppath/%name-%version-%release-root
 
 %description
