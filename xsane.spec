@@ -109,7 +109,7 @@ Name=XSane \$device
 Comment=XSane
 Exec=%_bindir/xsane
 Terminal=false
-Icon=%name.png
+Icon=%name
 Type=Application
 EOF
 
