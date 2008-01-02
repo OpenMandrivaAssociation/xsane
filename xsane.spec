@@ -24,6 +24,7 @@ Requires:	desktop-common-data
 # install
 Provides:       scanner-gui
 BuildRequires:	sane-devel gimp-devel >= 2.0 libjpeg-devel libpng-devel libusb-devel
+Buildroot:	%_tmppath/%name-%version-%release-root
 
 %description
 XSane is an X based interface for the SANE (Scanner Access Now Easy)
