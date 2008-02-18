@@ -1,6 +1,6 @@
 %define	name	xsane
 %define	version	0.995
-%define	release	%mkrel 1
+%define	release	%mkrel 2
 # Enable debug mode
 %define debug 0
 
