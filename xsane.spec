@@ -7,7 +7,7 @@
 Name:		%name
 Version:	%version
 Release:	%release
-Summary:	Xsane is a frontend for the SANE scanner interface
+Summary:	Frontend for the SANE scanner interface
 Group:		Graphics
 URL:		http://www.xsane.org/
 Source:		ftp://ftp.sane-project.org/pub/sane/xsane/%name-%version.tar.gz
@@ -35,7 +35,7 @@ performing the scan and then manipulating the captured image.
 You may install xsane-gimp if you want the GIMP plug-in.
 
 %package gimp
-Summary: 	A GIMP plug-in which provides the SANE scanner interface
+Summary: 	GIMP plug-in which provides the SANE scanner interface
 Group: 		Graphics
 Requires: 	sane >= 1.0, %{name} >= %{version}
  
