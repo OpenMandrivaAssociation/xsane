@@ -128,12 +128,16 @@ rm -fr %buildroot
 %_iconsdir/*
 
 %post
+%if %mdkversion < 200900
 %update_menus
+%endif
 update-alternatives --install %{launchers}/kde.desktop scanner.kde.dynamic %launchers/%name.desktop 30
 update-alternatives --install %{launchers}/gnome.desktop scanner.gnome.dynamic %launchers/%name.desktop 30
 
 %postun
+%if %mdkversion < 200900
 %update_menus
+%endif
 
 if [ $1 = 0 ]; then
   update-alternatives --remove scanner.kde.dynamic %launchers/%name.desktop
