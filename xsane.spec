@@ -8,9 +8,6 @@ Summary:	Frontend for the SANE scanner interface
 Group:		Graphics
 URL:		http://www.xsane.org/
 Source:		ftp://ftp.sane-project.org/pub/sane/xsane/%{name}-%version.tar.gz
-Source1:	xsane16.png
-Source2:	xsane32.png
-Source3:	xsane48.png
 Patch0:		xsane-0.99-browser.patch
 Patch1:		xsane-desktop.patch
 License:	GPLv2+
