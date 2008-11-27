@@ -1,20 +1,18 @@
-%define	name	xsane
-%define	version	0.995
-%define	release	%mkrel 2
 # Enable debug mode
 %define debug 0
 
-Name:		%name
-Version:	%version
-Release:	%release
+Name:		xsane
+Version:	0.996
+Release:	%mkrel 1
 Summary:	Frontend for the SANE scanner interface
 Group:		Graphics
 URL:		http://www.xsane.org/
-Source:		ftp://ftp.sane-project.org/pub/sane/xsane/%name-%version.tar.gz
+Source:		ftp://ftp.sane-project.org/pub/sane/xsane/%{name}-%version.tar.gz
 Source1:	xsane16.png
 Source2:	xsane32.png
 Source3:	xsane48.png
-Patch:		xsane-0.99-browser.patch
+Patch0:		xsane-0.99-browser.patch
+Patch1:		xsane-desktop.patch
 License:	GPLv2+
 Requires:	libsane >= 1.0.4
 # Contains "www-browser" script
@@ -23,8 +21,10 @@ Requires:	desktop-common-data
 # but decide depending on the system environment which GUI actually to
 # install
 Provides:       scanner-gui
-BuildRequires:	sane-devel gimp-devel >= 2.0 libjpeg-devel libpng-devel libusb-devel
-Buildroot:	%_tmppath/%name-%version-%release-root
+BuildRequires:	sane-devel
+BuildRequires:	gimp-devel >= 2.0
+BuildRequires:	imagemagick
+Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 XSane is an X based interface for the SANE (Scanner Access Now Easy)
@@ -47,12 +47,13 @@ newer) installed to use this package.
 
 %prep
 %setup -q
-%patch -p0 -b .www-browser
+%patch0 -p0 -b .www-browser
+%patch1 -p1 -b .desktop-file
 
 %build
 %if %debug
 export DONT_STRIP=1
-CFLAGS="`echo %optflags |sed -e 's/-O3/-g/' |sed -e 's/-O2/-g/'`" CXXFLAGS="`echo %optflags |sed -e 's/-O3/-g/' |sed -e 's/-O2/-g/'`" %configure2_5x --with-install-root=%{buildroot}
+CFLAGS="`echo %{optflags} |sed -e 's/-O3/-g/' |sed -e 's/-O2/-g/'`" CXXFLAGS="`echo %{optflags} |sed -e 's/-O3/-g/' |sed -e 's/-O2/-g/'`" %configure2_5x --with-install-root=%{buildroot}
 %else
 %configure2_5x --with-install-root=%{buildroot} 
 %endif
@@ -63,7 +64,7 @@ mv src/xsane src/xsane-gimp
 
 make clean
 %if %debug
-CFLAGS="`echo %optflags |sed -e 's/-O3/-g/' |sed -e 's/-O2/-g/'`" CXXFLAGS="`echo %optflags |sed -e 's/-O3/-g/' |sed -e 's/-O2/-g/'`" %configure2_5x --with-install-root=%{buildroot} --disable-gimp
+CFLAGS="`echo %{optflags} |sed -e 's/-O3/-g/' |sed -e 's/-O2/-g/'`" CXXFLAGS="`echo %{optflags} |sed -e 's/-O3/-g/' |sed -e 's/-O2/-g/'`" %configure2_5x --with-install-root=%{buildroot} --disable-gimp
 %else
 %configure2_5x --with-install-root=%{buildroot} --disable-gimp
 %endif
@@ -73,66 +74,54 @@ perl -pi -e 's#LDFLAGS  =  -L/usr/lib -Wl,-rpath,/usr/lib#LDFLAGS  =  -L/usr/lib
 
 %install
 
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %if %debug
 export DONT_STRIP=1
 %endif
 
-%makeinstall
+%makeinstall_std
 install src/xsane-gimp %{buildroot}%{_bindir}
 %find_lang %{name}
-
-mkdir -p %{buildroot}/{%{_miconsdir},%{_liconsdir},%{_menudir}}
-install -m 0644 %SOURCE1 %{buildroot}/%{_miconsdir}/xsane.png
-install -m 0644 %SOURCE2 %{buildroot}/%{_iconsdir}/xsane.png
-install -m 0644 %SOURCE3 %{buildroot}/%{_liconsdir}/xsane.png
-
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
-cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
-[Desktop Entry]
-Name=XSane
-Comment=XSane
-Exec=%{_bindir}/xsane
-Icon=%{name}
-Terminal=false
-Type=Application
-Categories=Graphics;Scanning;GTK;
-EOF
+mkdir -p %{buildroot}%{_iconsdir}/hicolor/{48x48,32x32,16x16}/apps
+convert -scale 48 %{buildroot}/usr/share/pixmaps/xsane.xpm %{buildroot}%{_iconsdir}/hicolor/48x48/apps/%{name}.png 
+convert -scale 32 %{buildroot}/usr/share/pixmaps/xsane.xpm %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png
+convert -scale 16 %{buildroot}/usr/share/pixmaps/xsane.xpm %{buildroot}%{_iconsdir}/hicolor/16x16/apps/%{name}.png
 
 # dynamic desktop support
 %define launchers /etc/dynamic/launchers/scanner
-mkdir -p $RPM_BUILD_ROOT%launchers
-cat > $RPM_BUILD_ROOT%launchers/%name.desktop << EOF
+mkdir -p %{buildroot}%{launchers}
+cat > %{buildroot}%{launchers}/%{name}.desktop << EOF
 [Desktop Entry]
 Name=XSane \$device
 Comment=XSane
 Exec=%_bindir/xsane
 Terminal=false
-Icon=%name
+Icon=%{name}
 Type=Application
 EOF
 
 %clean
-rm -fr %buildroot
+rm -fr %{buildroot}
 
 %files -f %{name}.lang
 %defattr(-,root,root)
 %doc xsane*
-%config(noreplace) %launchers/%name.desktop
-%_bindir/xsane
-%dir %_datadir/sane
-%_datadir/sane/*
-%_mandir/man1/*
-%{_datadir}/applications/mandriva-%{name}.desktop
-%_iconsdir/*
+%config(noreplace) %{launchers}/%{name}.desktop
+%{_bindir}/xsane
+%dir %{_datadir}/sane
+%{_datadir}/sane/*
+%{_mandir}/man1/*
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/pixmaps/%{name}.xpm
+%{_iconsdir}/hicolor/*/apps/*
 
 %post
 %if %mdkversion < 200900
 %update_menus
 %endif
-update-alternatives --install %{launchers}/kde.desktop scanner.kde.dynamic %launchers/%name.desktop 30
-update-alternatives --install %{launchers}/gnome.desktop scanner.gnome.dynamic %launchers/%name.desktop 30
+update-alternatives --install %{launchers}/kde.desktop scanner.kde.dynamic %{launchers}/%{name}.desktop 30
+update-alternatives --install %{launchers}/gnome.desktop scanner.gnome.dynamic %{launchers}/%{name}.desktop 30
 
 %postun
 %if %mdkversion < 200900
@@ -140,8 +129,8 @@ update-alternatives --install %{launchers}/gnome.desktop scanner.gnome.dynamic %
 %endif
 
 if [ $1 = 0 ]; then
-  update-alternatives --remove scanner.kde.dynamic %launchers/%name.desktop
-  update-alternatives --remove scanner.gnome.dynamic %launchers/%name.desktop
+  update-alternatives --remove scanner.kde.dynamic %{launchers}/%{name}.desktop
+  update-alternatives --remove scanner.gnome.dynamic %{launchers}/%{name}.desktop
 fi
 
 %files gimp
