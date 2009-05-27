@@ -10,6 +10,7 @@ URL:		http://www.xsane.org/
 Source:		ftp://ftp.sane-project.org/pub/sane/xsane/%{name}-%version.tar.gz
 Patch0:		xsane-0.99-browser.patch
 Patch1:		xsane-desktop.patch
+Patch2:     xsane-0.996-fix-gcc44.patch
 License:	GPLv2+
 Requires:	libsane >= 1.0.4
 # Contains "www-browser" script
@@ -46,6 +47,7 @@ newer) installed to use this package.
 %setup -q
 %patch0 -p0 -b .www-browser
 %patch1 -p1 -b .desktop-file
+%patch2 -p0 -b .gcc44
 
 %build
 %if %debug
