@@ -20,6 +20,7 @@ Requires:	desktop-common-data
 # install
 Provides:       scanner-gui
 BuildRequires:	sane-devel
+BuildRequires:	libjpeg-devel
 BuildRequires:	gimp-devel >= 2.0
 BuildRequires:	imagemagick
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root
