@@ -3,7 +3,7 @@
 
 Name:		xsane
 Version:	0.997
-Release:	%mkrel 1
+Release:	%mkrel 2
 Summary:	Frontend for the SANE scanner interface
 Group:		Graphics
 URL:		http://www.xsane.org/
@@ -23,6 +23,7 @@ BuildRequires:	sane-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	gimp-devel >= 2.0
 BuildRequires:	imagemagick
+BuildRequires:  lcms-devel
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
