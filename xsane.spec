@@ -24,6 +24,9 @@ BuildRequires:	libjpeg-devel
 BuildRequires:	gimp-devel >= 2.0
 BuildRequires:	imagemagick
 BuildRequires:  lcms-devel
+BuildRequires:  libtiff-devel
+BuildRequires:  libgphoto-devel
+BuildRequires:  libv4l-devel
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
