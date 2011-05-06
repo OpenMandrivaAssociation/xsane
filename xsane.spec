@@ -3,7 +3,7 @@
 
 Name:		xsane
 Version:	0.997
-Release:	%mkrel 3
+Release:	%mkrel 4
 Summary:	Frontend for the SANE scanner interface
 Group:		Graphics
 URL:		http://www.xsane.org/
