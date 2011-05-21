@@ -2,16 +2,15 @@
 %define debug 0
 
 Name:		xsane
-Version:	0.997
-Release:	%mkrel 4
+Version:	0.998
+Release:	%mkrel 1
 Summary:	Frontend for the SANE scanner interface
 Group:		Graphics
 URL:		http://www.xsane.org/
-Source:		ftp://ftp.sane-project.org/pub/sane/xsane/%{name}-%version.tar.gz
+License:	GPLv2+
+Source0:	ftp://ftp.sane-project.org/pub/sane/xsane/%{name}-%version.tar.gz
 Patch0:		xsane-0.99-browser.patch
 Patch1:		xsane-desktop.patch
-Patch2:     xsane-0.996-fix-gcc44.patch
-License:	GPLv2+
 Requires:	libsane >= 1.0.4
 # Contains "www-browser" script
 Requires:	desktop-common-data
@@ -27,7 +26,7 @@ BuildRequires:  lcms-devel
 BuildRequires:  libtiff-devel
 BuildRequires:  libgphoto-devel
 BuildRequires:  libv4l-devel
-Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 XSane is an X based interface for the SANE (Scanner Access Now Easy)
@@ -52,7 +51,6 @@ newer) installed to use this package.
 %setup -q
 %patch0 -p0 -b .www-browser
 %patch1 -p1 -b .desktop-file
-%patch2 -p0 -b .gcc44
 
 %build
 %if %debug
