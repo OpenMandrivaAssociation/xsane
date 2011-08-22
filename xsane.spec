@@ -3,7 +3,7 @@
 
 Name:		xsane
 Version:	0.998
-Release:	%mkrel 1
+Release:	%mkrel 2
 Summary:	Frontend for the SANE scanner interface
 Group:		Graphics
 URL:		http://www.xsane.org/
@@ -11,6 +11,7 @@ License:	GPLv2+
 Source0:	ftp://ftp.sane-project.org/pub/sane/xsane/%{name}-%version.tar.gz
 Patch0:		xsane-0.99-browser.patch
 Patch1:		xsane-desktop.patch
+Patch2:		xsane-ru-po.patch
 Requires:	libsane >= 1.0.4
 # Contains "www-browser" script
 Requires:	desktop-common-data
@@ -51,6 +52,7 @@ newer) installed to use this package.
 %setup -q
 %patch0 -p0 -b .www-browser
 %patch1 -p1 -b .desktop-file
+%patch2 -p1 -b .po-file
 
 %build
 %if %debug
