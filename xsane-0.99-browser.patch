@@ -1,0 +1,109 @@
+Index: src/xsane-text.h
+===================================================================
+--- src/xsane-text.h
++++ src/xsane-text.h	2009-05-27 10:12:09.000000000 +0200
+@@ -802,7 +802,7 @@
+ #define ERR_FAILED_CREATE_FILE		_("Failed to create file:")
+ #define ERR_LOAD_DEVICE_SETTINGS	_("Error while loading device settings:")
+ #define ERR_NO_DRC_FILE			_("is not a device-rc-file !!!")
+-#define ERR_NETSCAPE_EXECUTE_FAIL	_("Failed to execute netscape!")
++#define ERR_NETSCAPE_EXECUTE_FAIL  _("Failed to execute www-browser!")
+ #define ERR_SENDFAX_RECEIVER_MISSING	_("Send fax: no receiver defined")
+ 
+ #define ERR_CREATED_FOR_DEVICE		_("has been created for device")
+Index: src/xsane.c
+===================================================================
+--- src/xsane.c
++++ src/xsane.c	2009-05-27 10:14:59.000000000 +0200
+@@ -3679,80 +3679,12 @@
+  char *name = (char *) data;
+  char buf[TEXTBUFSIZE];
+  pid_t pid;
+- char *arg[5];
+- struct stat st;
+- char netscape_lock_path[PATH_MAX];
++ char *arg[3];
+ 
+   DBG(DBG_proc, "xsane_show_doc_via_nsr(%s)\n", name);
+ 
+-
+-  /* at first we have to test if netscape is running */
+-  /* a simple way is to take a look at ~/.netscape/lock */
+-  /* when this is a link we can assume that netscape is running */
+-
+-  if (getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)) != NULL) /* $HOME defined? */
+-  {
+-    snprintf(netscape_lock_path, sizeof(netscape_lock_path), "%s%c.netscape%clock",
+-             getenv(STRINGIFY(ENVIRONMENT_HOME_DIR_NAME)), SLASH, SLASH); 
+-  }
+-  else
+-  {
+-    *netscape_lock_path = 0; /* empty path */
+-  }
+-
+-#ifdef HAVE_LSTAT
+-  if ((strlen(netscape_lock_path) > 0) && (lstat(netscape_lock_path, &st) == 0)) /*  netscape is running */
+-#else
+-  if ((strlen(netscape_lock_path) > 0) && (stat(netscape_lock_path, &st) == 0)) /*  netscape is running */
+-#endif
+-  {
+-    DBG(DBG_proc, "xsane_show_doc_via_nsr: netscape is running\n");
+-    snprintf(buf, sizeof(buf), "openFile(%s, new-window)", name);
+-    arg[0] = "netscape";
+-    arg[1] = "-no-about-splash";
+-    arg[2] = "-remote";
+-    arg[3] = buf;
+-    arg[4] = 0;
+- 
+-    pid = fork();
+- 
+-    if (pid == 0) /* new process */
+-    {
+-     FILE *ipc_file = NULL;
+-
+-      if (xsane.ipc_pipefd[0])
+-      {
+-        close(xsane.ipc_pipefd[0]); /* close reading end of pipe */
+-        ipc_file = fdopen(xsane.ipc_pipefd[1], "w");
+-      }
+-
+-      DBG(DBG_info, "trying to change user id for new subprocess:\n");
+-      DBG(DBG_info, "old effective uid = %d\n", (int) geteuid());
+-      setuid(getuid());
+-      DBG(DBG_info, "new effective uid = %d\n", (int) geteuid());
+-
+-      execvp(arg[0], arg); /* does not return if successfully */
+-      DBG(DBG_error, "%s %s\n", ERR_FAILED_EXEC_DOC_VIEWER, preferences.browser);
+-
+-      /* send error message via IPC pipe to parent process */
+-      if (ipc_file)
+-      {
+-        fprintf(ipc_file, "%s %s:\n%s", ERR_FAILED_EXEC_DOC_VIEWER, preferences.browser, strerror(errno));
+-        fflush(ipc_file); /* make sure message is displayed */
+-        fclose(ipc_file);
+-      }
+-
+-      _exit(0); /* do not use exit() here! otherwise gtk gets in trouble */
+-    }
+-    else /* parent process */
+-    {
+-      xsane_front_gtk_add_process_to_list(pid); /* add pid to child process list */
+-    }
+-  }
+-  else /* netscape not running */
+-  { 
+-    DBG(DBG_proc, "xsane_show_doc_via_nsr: netscape is not running, trying to start netscape\n");
+-    arg[0] = "netscape";
++    DBG(DBG_proc, "xsane_show_doc_via_nsr: replace netscape by www-browser\n");
++    arg[0] = "www-browser";
+     arg[1] = name;
+     arg[2] = 0;
+  
+@@ -3790,7 +3722,6 @@
+     {
+       xsane_front_gtk_add_process_to_list(pid); /* add pid to child process list */
+     }
+-  }
+ 
+   while (gtk_events_pending())
+   {
