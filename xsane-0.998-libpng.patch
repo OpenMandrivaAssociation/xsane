@@ -1,0 +1,21 @@
+diff -up xsane-0.998/src/xsane-save.c.libpng xsane-0.998/src/xsane-save.c
+--- xsane-0.998/src/xsane-save.c.libpng	2011-11-21 13:29:05.468000002 +0100
++++ xsane-0.998/src/xsane-save.c	2011-11-21 13:50:38.522004958 +0100
+@@ -4912,7 +4912,7 @@ int xsane_save_png(FILE *outfile, int co
+     return -1; /* error */
+   }
+ 
+-  if (setjmp(png_ptr->jmpbuf))
++  if (setjmp(png_jmpbuf(png_ptr)))
+   {
+     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBPNG);
+     xsane_back_gtk_error(buf, TRUE);
+@@ -5102,7 +5102,7 @@ int xsane_save_png_16(FILE *outfile, int
+     return -1; /* error */
+   }
+ 
+-  if (setjmp(png_ptr->jmpbuf))
++  if (setjmp(png_jmpbuf(png_ptr)))
+   {
+     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBPNG);
+     xsane_back_gtk_error(buf, TRUE);
