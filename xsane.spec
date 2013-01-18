@@ -3,7 +3,7 @@
 
 Name:		xsane
 Version:	0.998
-Release:	6
+Release:	7
 Summary:	Frontend for the SANE scanner interface
 Group:		Graphics
 URL:		http://www.xsane.org/
@@ -19,10 +19,11 @@ Patch6:		xsane-0.998-preview-selection.patch
 Patch7:		xsane-0.998-wmclass.patch
 # Contains "www-browser" script
 Requires:	desktop-common-data
+Requires(post,postun):	rpm-helper
 # This is for the drakxtools so that they can install a GUI for scanning
 # but decide depending on the system environment which GUI actually to
 # install
-Provides:	scanner-gui
+Provides:		scanner-gui
 BuildRequires:	imagemagick
 BuildRequires:	jpeg-devel
 BuildRequires:	tiff-devel
@@ -169,7 +170,7 @@ fi
   + Alexander Barakin <abarakin@mandriva.org>
     - Updated Russian translation
 
-* Sat May 21 2011 José Melo <ze@mandriva.org> 0.998-1
+* Sat May 21 2011 JosÃ© Melo <ze@mandriva.org> 0.998-1
 + Revision: 676467
 - version 0.998
 - remove patch2 (fixed upstream)
@@ -202,10 +203,10 @@ fi
 + Revision: 417585
 - rebuild for new libjpeg v7
 
-  + Nicolas Lécureuil <nlecureuil@mandriva.com>
+  + Nicolas LÃ©cureuil <nlecureuil@mandriva.com>
     - Fix gcc44 patch
 
-* Wed May 27 2009 Nicolas Lécureuil <nlecureuil@mandriva.com> 0.996-2mdv2010.0
+* Wed May 27 2009 Nicolas LÃ©cureuil <nlecureuil@mandriva.com> 0.996-2mdv2010.0
 + Revision: 380117
 - Fix build with gcc 4.4
 - Rediff patches
@@ -248,7 +249,7 @@ fi
 
 
 
-* Tue Sep 05 2006 Nicolas L�cureuil <neoclust@mandriva.org> 0.991-2mdv2007.0
+* Tue Sep 05 2006 Nicolas Lécureuil <neoclust@mandriva.org> 0.991-2mdv2007.0
 - Use mkrel
 - XDG
 
