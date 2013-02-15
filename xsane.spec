@@ -3,7 +3,7 @@
 
 Name:		xsane
 Version:	0.998
-Release:	7
+Release:	8
 Summary:	Frontend for the SANE scanner interface
 Group:		Graphics
 URL:		http://www.xsane.org/
@@ -17,6 +17,9 @@ Patch4:		xsane-0.997-no-file-selected.patch
 Patch5:		xsane-0.998-libpng.patch
 Patch6:		xsane-0.998-preview-selection.patch
 Patch7:		xsane-0.998-wmclass.patch
+# Weird hack needed to work around rpm causing checksum errors when
+# packaging the pnm
+Patch8:		xsane-0.998-pnm-to-png.patch
 # Contains "www-browser" script
 Requires:	desktop-common-data
 Requires(post,postun):	rpm-helper
@@ -65,6 +68,7 @@ newer) installed to use this package.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 %build
 %if %{debug}
@@ -113,6 +117,9 @@ Terminal=false
 Icon=%{name}
 Type=Application
 EOF
+
+convert %buildroot%_datadir/sane/xsane/xsane-startimage.pnm %buildroot%_datadir/sane/xsane-startimage.png
+rm %buildroot%_datadir/sane/xsane/xsane-startimage.pnm
 
 %files -f %{name}.lang
 %doc xsane*

@@ -1,0 +1,11 @@
+--- xsane-0.998/src/xsane-preview.c.bero	2013-02-15 21:21:47.298847405 +0100
++++ xsane-0.998/src/xsane-preview.c	2013-02-15 21:21:56.487738430 +0100
+@@ -2430,7 +2430,7 @@ void preview_create_batch_icon(Preview *
+   {
+    char filename[PATH_MAX];
+ 
+-    xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, "xsane-startimage", 0, ".pnm", XSANE_PATH_SYSTEM);
++    xsane_back_gtk_make_path(sizeof(filename), filename, "xsane", 0, "xsane-startimage", 0, ".png", XSANE_PATH_SYSTEM);
+     in = fopen(filename, "rb"); /* read binary (b for win32) */
+     if (in)
+     {
