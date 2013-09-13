@@ -2,8 +2,8 @@
 %define debug 0
 
 Name:		xsane
-Version:	0.998
-Release:	9
+Version:	0.999
+Release:	1
 Summary:	Frontend for the SANE scanner interface
 Group:		Graphics
 URL:		http://www.xsane.org/
