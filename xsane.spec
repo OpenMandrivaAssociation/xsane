@@ -99,7 +99,7 @@ export DONT_STRIP=1
 
 %makeinstall_std
 install src/xsane-gimp %{buildroot}%{_bindir}
-%find_lang %{name}
+
 
 # (tpg) icons
 for i in 16 32 48; do
@@ -123,6 +123,8 @@ EOF
 convert %{buildroot}%{_datadir}/sane/xsane/xsane-startimage.pnm %{buildroot}%{_datadir}/sane/xsane-startimage.png
 rm %{buildroot}%{_datadir}/sane/xsane/xsane-startimage.pnm
 
+%find_lang %{name}
+
 %post
 update-alternatives --install %{launchers}/kde.desktop scanner.kde.dynamic %{launchers}/%{name}.desktop 30
 update-alternatives --install %{launchers}/gnome.desktop scanner.gnome.dynamic %{launchers}/%{name}.desktop 30
@@ -132,10 +134,6 @@ if [ $1 = 0 ]; then
   update-alternatives --remove scanner.kde.dynamic %{launchers}/%{name}.desktop
   update-alternatives --remove scanner.gnome.dynamic %{launchers}/%{name}.desktop
 fi
-
-%files gimp
-%doc xsane*
-%{_bindir}/xsane-gimp
 
 %post gimp
 if [ -d %{_libdir}/gimp ]; then
@@ -169,3 +167,7 @@ fi
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.xpm
 %{_iconsdir}/hicolor/*/apps/*
+
+%files gimp
+%doc xsane*
+%{_bindir}/xsane-gimp
