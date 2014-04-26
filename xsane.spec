@@ -98,8 +98,7 @@ export DONT_STRIP=1
 %endif
 
 %makeinstall_std
-install src/xsane-gimp %{buildroot}%{_bindir}
-
+#install src/xsane-gimp %{buildroot}%{_bindir}
 
 # (tpg) icons
 for i in 16 32 48; do
