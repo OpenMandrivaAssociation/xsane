@@ -3,14 +3,15 @@
 
 Name:		xsane
 Version:	0.999
-Release:	8
+Release:	9
 Summary:	Frontend for the SANE scanner interface
 Group:		Graphics
 URL:		http://www.xsane.org/
 License:	GPLv2+
 Source0:	ftp://ftp.sane-project.org/pub/sane/xsane/%{name}-%version.tar.gz
+Source1:        xsane-russian-docs.tar.xz
+Source2:        xsane.desktop
 Patch0:		xsane-0.99-browser.patch
-Patch1:		xsane-desktop.patch
 Patch2:		xsane-ru-po.patch
 Patch3:		xsane-0.995-close-fds.patch
 Patch4:		xsane-0.997-no-file-selected.patch
@@ -60,8 +61,8 @@ newer) installed to use this package.
 
 %prep
 %setup -q
+cat %{SOURCE2} > src/xsane.desktop
 %patch0 -p0 -b .www-browser
-%patch1 -p1 -b .desktop-file
 %patch2 -p1 -b .po-file
 %patch3 -p1
 %patch4 -p1
@@ -121,6 +122,9 @@ EOF
 
 convert %{buildroot}%{_datadir}/sane/xsane/xsane-startimage.pnm %{buildroot}%{_datadir}/sane/xsane-startimage.png
 rm %{buildroot}%{_datadir}/sane/xsane/xsane-startimage.pnm
+
+mkdir -p %{buildroot}%{_datadir}/sane/xsane/doc/ru/
+tar xaf %{SOURCE1} -C %{buildroot}%{_datadir}/sane/xsane/doc/ru/
 
 %find_lang %{name}
 

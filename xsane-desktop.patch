@@ -1,8 +1,0 @@
---- xsane-0.996/src/xsane.desktop.orig	2008-11-27 22:25:10.000000000 +0100
-+++ xsane-0.996/src/xsane.desktop	2008-11-27 22:28:31.000000000 +0100
-@@ -6,4 +6,4 @@
- Icon=xsane
- Terminal=false
- Type=Application
--Categories=Application;Graphics
-+Categories=Graphics;Scanning;GTK;

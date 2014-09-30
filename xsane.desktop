@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=XSane - Scanning
+Name[ru]=XSane — Сканирование
+Comment=Acquire images from a scanner
+Comment[ru]=Получение изображений со сканера
+Exec=xsane
+Icon=xsane
+Terminal=false
+Type=Application
+Categories=Graphics;Scanning;GTK;
