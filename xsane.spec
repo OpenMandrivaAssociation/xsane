@@ -124,7 +124,7 @@ convert %{buildroot}%{_datadir}/sane/xsane/xsane-startimage.pnm %{buildroot}%{_d
 rm %{buildroot}%{_datadir}/sane/xsane/xsane-startimage.pnm
 
 mkdir -p %{buildroot}%{_datadir}/sane/xsane/doc/ru/
-tar xaf %{SOURCE1} -C %{buildroot}%{_datadir}/sane/xsane/doc/ru/
+tar xf %{SOURCE1} -C %{buildroot}%{_datadir}/sane/xsane/doc/ru/
 
 %find_lang %{name}
 
