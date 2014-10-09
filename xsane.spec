@@ -21,6 +21,8 @@ Patch7:		xsane-0.998-wmclass.patch
 # Weird hack needed to work around rpm causing checksum errors when
 # packaging the pnm
 Patch8:		xsane-0.998-pnm-to-png.patch
+# (tpg) add support for LCMS2
+Patch9:		xsane-0.999-lcms2.patch
 # Contains "www-browser" script
 Requires:	desktop-common-data
 Requires(post,postun):	rpm-helper
@@ -34,7 +36,7 @@ BuildRequires:	tiff-devel
 BuildRequires:	pkgconfig(gimp-2.0)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gtk+-2.0)
-BuildRequires:	pkgconfig(lcms)
+BuildRequires:	pkgconfig(lcms2)
 BuildRequires:	pkgconfig(libgphoto2)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(libv4l1)
@@ -70,13 +72,17 @@ cat %{SOURCE2} > src/xsane.desktop
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 %build
+#(tpg) needed for patch9
+autoreconf -fiv
+
 %if %{debug}
 export DONT_STRIP=1
-CFLAGS="`echo %{optflags} |sed -e 's/-O3/-g/' |sed -e 's/-O2/-g/'`" CXXFLAGS="`echo %{optflags} |sed -e 's/-O3/-g/' |sed -e 's/-O2/-g/'`" %configure2_5x --with-install-root=%{buildroot}
+CFLAGS="`echo %{optflags} |sed -e 's/-O3/-g/' |sed -e 's/-O2/-g/'`" CXXFLAGS="`echo %{optflags} |sed -e 's/-O3/-g/' |sed -e 's/-O2/-g/'`" %configure --with-install-root=%{buildroot}
 %else
-%configure2_5x --with-install-root=%{buildroot}
+%configure --with-install-root=%{buildroot}
 %endif
 perl -pi -e 's#LDFLAGS  =  -L/usr/lib -Wl,-rpath,/usr/lib#LDFLAGS  =  -L/usr/lib -Wl#' src/Makefile
 ##perl -pi -e 's#ja\.(po|gmo)##' po/Makefile
@@ -85,9 +91,9 @@ mv src/xsane src/xsane-gimp
 
 make clean
 %if %debug
-CFLAGS="`echo %{optflags} |sed -e 's/-O3/-g/' |sed -e 's/-O2/-g/'`" CXXFLAGS="`echo %{optflags} |sed -e 's/-O3/-g/' |sed -e 's/-O2/-g/'`" %configure2_5x --with-install-root=%{buildroot} --disable-gimp
+CFLAGS="`echo %{optflags} |sed -e 's/-O3/-g/' |sed -e 's/-O2/-g/'`" CXXFLAGS="`echo %{optflags} |sed -e 's/-O3/-g/' |sed -e 's/-O2/-g/'`" %configure --with-install-root=%{buildroot} --disable-gimp
 %else
-%configure2_5x --with-install-root=%{buildroot} --disable-gimp
+%configure --with-install-root=%{buildroot} --disable-gimp
 %endif
 perl -pi -e 's#LDFLAGS  =  -L/usr/lib -Wl,-rpath,/usr/lib#LDFLAGS  =  -L/usr/lib -Wl#' src/Makefile
 ##perl -pi -e 's#ja\.(po|gmo)##' po/Makefile
