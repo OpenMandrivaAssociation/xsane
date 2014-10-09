@@ -24,7 +24,7 @@ Patch8:		xsane-0.998-pnm-to-png.patch
 # (tpg) add support for LCMS2
 Patch9:		xsane-0.999-lcms2.patch
 # autoconf-generated files
-Patch100: xsane-0.999-7-autoconf.patch.bz
+Patch100: xsane-0.999-7-autoconf.patch.bz2
 # Contains "www-browser" script
 Requires:	desktop-common-data
 Requires(post,postun):	rpm-helper
