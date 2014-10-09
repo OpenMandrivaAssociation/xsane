@@ -30,6 +30,7 @@ Requires(post,postun):	rpm-helper
 # but decide depending on the system environment which GUI actually to
 # install
 Provides:		scanner-gui
+BuildRequires:	intltool
 BuildRequires:	imagemagick
 BuildRequires:	jpeg-devel
 BuildRequires:	tiff-devel
