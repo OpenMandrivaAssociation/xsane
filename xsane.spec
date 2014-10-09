@@ -23,6 +23,8 @@ Patch7:		xsane-0.998-wmclass.patch
 Patch8:		xsane-0.998-pnm-to-png.patch
 # (tpg) add support for LCMS2
 Patch9:		xsane-0.999-lcms2.patch
+# autoconf-generated files
+Patch100: xsane-0.999-7-autoconf.patch.bz
 # Contains "www-browser" script
 Requires:	desktop-common-data
 Requires(post,postun):	rpm-helper
@@ -74,11 +76,9 @@ cat %{SOURCE2} > src/xsane.desktop
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch100 -p1
 
 %build
-#(tpg) needed for patch9
-autoreconf -fiv
-
 %if %{debug}
 export DONT_STRIP=1
 CFLAGS="`echo %{optflags} |sed -e 's/-O3/-g/' |sed -e 's/-O2/-g/'`" CXXFLAGS="`echo %{optflags} |sed -e 's/-O3/-g/' |sed -e 's/-O2/-g/'`" %configure --with-install-root=%{buildroot}
