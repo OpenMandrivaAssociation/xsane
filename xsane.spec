@@ -3,7 +3,7 @@
 
 Name:		xsane
 Version:	0.999
-Release:	11
+Release:	12
 Summary:	Frontend for the SANE scanner interface
 Group:		Graphics
 URL:		http://www.xsane.org/
@@ -31,7 +31,7 @@ Requires(post,postun):	rpm-helper
 # This is for the drakxtools so that they can install a GUI for scanning
 # but decide depending on the system environment which GUI actually to
 # install
-Provides:		scanner-gui
+Provides:	scanner-gui
 BuildRequires:	intltool
 BuildRequires:	imagemagick
 BuildRequires:	jpeg-devel
@@ -57,7 +57,8 @@ You may install xsane-gimp if you want the GIMP plug-in.
 %package gimp
 Summary:	GIMP plug-in which provides the SANE scanner interface
 Group:		Graphics
-Requires:	sane >= 1.0, %{name} >= %{version}
+Requires:	sane >= 1.0
+Requires:	%{name} >= %{version}
 
 %description gimp
 This package provides the regular XSane frontend for the SANE scanner
