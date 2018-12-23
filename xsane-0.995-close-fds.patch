@@ -70,12 +70,3 @@ diff -up xsane-0.995/src/xsane.c.close-fds xsane-0.995/src/xsane.c
        DBG(DBG_info, "trying to change user id for new subprocess:\n");
        DBG(DBG_info, "old effective uid = %d\n", (int) geteuid());
        setuid(getuid());
-@@ -3888,6 +3929,8 @@ static void xsane_show_doc(GtkWidget *wi
-         ipc_file = fdopen(xsane.ipc_pipefd[1], "w");
-       }
- 
-+      xsane_close_fds_for_exec (1, 2, xsane.ipc_pipefd[1], -1);
-+
-       DBG(DBG_info, "trying to change user id for new subprocess:\n");
-       DBG(DBG_info, "old effective uid = %d\n", (int) geteuid());
-       setuid(getuid());
