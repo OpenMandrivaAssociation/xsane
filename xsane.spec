@@ -3,7 +3,7 @@
 
 Name:		xsane
 Version:	0.999
-Release:	16
+Release:	17
 Summary:	Frontend for the SANE scanner interface
 Group:		Graphics
 URL:		http://www.xsane.org/
@@ -25,8 +25,6 @@ Patch8:		xsane-0.998-pnm-to-png.patch
 Patch9:		xsane-0.999-lcms2.patch
 # autoconf-generated files
 Patch100: xsane-0.999-7-autoconf.patch.bz2
-# Contains "www-browser" script
-Requires:	desktop-common-data
 Requires(post,postun):	rpm-helper
 # This is for the drakxtools so that they can install a GUI for scanning
 # but decide depending on the system environment which GUI actually to
