@@ -3,7 +3,7 @@
 
 Name:		xsane
 Version:	0.999
-Release:	19
+Release:	20
 Summary:	Frontend for the SANE scanner interface
 Group:		Graphics
 URL:		http://www.xsane.org/
@@ -43,6 +43,8 @@ BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(libv4l1)
 BuildRequires:	pkgconfig(libv4l2)
 BuildRequires:	pkgconfig(sane-backends)
+
+Requires: sane
 
 %description
 XSane is an X based interface for the SANE (Scanner Access Now Easy)
