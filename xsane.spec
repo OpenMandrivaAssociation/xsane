@@ -6,7 +6,7 @@ Version:	0.999
 Release:	22
 Summary:	Frontend for the SANE scanner interface
 Group:		Graphics
-URL:		http://www.xsane.org/
+URL:		https://www.xsane.org/
 License:	GPLv2+
 Source0:	ftp://ftp.sane-project.org/pub/sane/xsane/%{name}-%version.tar.gz
 Source1:        xsane-russian-docs.tar.xz
